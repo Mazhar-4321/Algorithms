@@ -12,12 +12,13 @@ public class Main {
     private static final int BINARY_SEARCH = 2;
     private static final int INSERTION_SORT = 3;
     private static final int BUBBLE_SORT = 4;
+    private static final int MERGE_SORT = 5;
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         System.out.println("Welcome To Algorithms");
         System.out.println("Press 1 to Find Permutation Of Strings,2 to perform Binary Seaarch,3 for Insertion Sort," +
-                "4 for Bubble Sort");
+                "4 for Bubble Sort,5 For Merge Sort");
         Main main = new Main();
         int option = scanner.nextInt();
         String inputString;
@@ -40,6 +41,15 @@ public class Main {
                 }
                 main.insertionSort(words);
                 break;
+            case MERGE_SORT:
+                System.out.println("Enter Number Of Words You Want to Sort");
+                number = scanner.nextInt();
+                words = new String[number];
+                for (int i = 0; i < words.length; i++) {
+                    words[i] = scanner.next();
+                }
+                main.mergeSort(words);
+                break;
             case BUBBLE_SORT:
                 System.out.println("Enter Number Of Integers You Want to Sort");
                 number = scanner.nextInt();
@@ -50,6 +60,59 @@ public class Main {
                 main.bubbleSort(numbers);
                 break;
         }
+    }
+
+    private void mergeSort(String[] words) {
+        mergseSortAlgorithm(words, 0, words.length - 1);
+        for (String word : words) {
+            System.out.println(word);
+        }
+    }
+
+    private void mergseSortAlgorithm(String[] words, int first, int last) {
+        if (first < last) {
+            int mid = (first + last) / 2;
+            mergseSortAlgorithm(words, first, mid);
+            mergseSortAlgorithm(words, mid + 1, last);
+            merge(words, first, mid, last);
+        }
+    }
+
+    private void merge(String[] words, int first, int mid, int last) {
+        int i, j, k;
+        int n1 = mid - first + 1;
+        int n2 = last - mid;
+        String[] LeftArray = new String[n1];
+        String[] RightArray = new String[n2];
+        for (i = 0; i < n1; i++)
+            LeftArray[i] = words[first + i];
+        for (j = 0; j < n2; j++)
+            RightArray[j] = words[mid + 1 + j];
+        i = 0;
+        j = 0;
+        k = first;
+        while (i < n1 && j < n2) {
+            if (LeftArray[i].compareTo(RightArray[j]) <= 0) {
+                words[k] = LeftArray[i];
+                i++;
+            } else {
+                words[k] = RightArray[j];
+                j++;
+            }
+            k++;
+        }
+        while (i < n1) {
+            words[k] = LeftArray[i];
+            i++;
+            k++;
+        }
+
+        while (j < n2) {
+            words[k] = RightArray[j];
+            j++;
+            k++;
+        }
+
     }
 
     private void bubbleSort(int[] numbers) {
