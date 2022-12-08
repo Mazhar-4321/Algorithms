@@ -17,6 +17,7 @@ public class Main {
     private static final int UNORDERED_LIST_MANIPULATION = 13;
     private static final int ORDERED_LIST_MANIPULATION = 14;
     private static final int SIMPLE_BALANCED_PARENTHESIS = 15;
+    private static final int BANKING_CASH_COUNTER_SIMULATOR = 16;
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -24,7 +25,7 @@ public class Main {
         System.out.println("Press 1 to Find Permutation Of Strings,2 to perform Binary Seaarch,3 for Insertion Sort," +
                 "\n4 for Bubble Sort,5 For Merge Sort,6 for Anagrams,7 for Range Prime Numbers,9 For Guess A Number Game\n" +
                 ",12 for Customizing Message,13 for Unordered List Manipulation,14 for Ordered List Manipulation\n" +
-                ",15 for Validate Parenthesis");
+                ",15 for Validate Parenthesis,16 for Cash Counter Simulator");
         Main main = new Main();
         int option = scanner.nextInt();
         String inputString;
@@ -94,8 +95,53 @@ public class Main {
             case SIMPLE_BALANCED_PARENTHESIS:
                 main.perfomBalancedParenthesisValidationOnExpression();
                 break;
+            case BANKING_CASH_COUNTER_SIMULATOR:
+                main.simulateCashCounterSystem();
+                break;
 
         }
+    }
+
+    private void simulateCashCounterSystem() {
+        System.out.println("Enter Number Of People You Want to Allow to wait in Queue");
+        int number = scanner.nextInt();
+        System.out.println("Please Enter Your Capital");
+        long capitalAmount = scanner.nextLong();
+        Queue<Integer> queue = new Queue<>();
+        for(int i=1;i<=number;i++){
+            queue.enqueue(i);
+        }
+        System.out.println("People In The Queue");
+        System.out.println(queue);
+        for (int i = 1; i <= number; i++) {
+            System.out.println("Person" + i + " Turn");
+            System.out.println("Enter 1 to Deposit and 2 to WithDraw");
+            while (true) {
+                int option = scanner.nextInt();
+                long amount = 0;
+                if (option == 2) {
+                    System.out.println("How Much Cash You Want to Withdraw:");
+                    amount = scanner.nextLong();
+                    if (amount > capitalAmount) {
+                        System.out.println("Sorry Your Amount Exceeds Our Capital, Enter a Different Amount");
+                        System.out.println("Enter 1 to Deposit and 2 to WithDraw");
+                        continue;
+                    }
+                    capitalAmount -= amount;
+                    break;
+                }
+                if (option == 1) {
+                    System.out.println("How Much Cash You Want to Deposit:");
+                    amount = scanner.nextLong();
+                    capitalAmount += amount;
+                    break;
+                }
+            }
+            queue.dequeue();
+            System.out.println("People In The Queue");
+            System.out.println(queue);
+        }
+        System.out.println("Amount Available:"+capitalAmount+" and Queue Size is"+queue.size());
     }
 
     private void perfomBalancedParenthesisValidationOnExpression() {

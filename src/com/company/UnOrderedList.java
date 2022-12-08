@@ -86,9 +86,11 @@ public class UnOrderedList<K extends Comparable<K>> {
         search(item);
         return index;
     }
-  public K getHeadData(){
-        return head==null?null:head.getKey();
-  }
+
+    public K getHeadData() {
+        return head == null ? null : head.getKey();
+    }
+
     public void storeDataIntoFile() {
         File file = new File("D:\\Algorithms\\src\\resources\\data.csv");
         FileWriter fr = null;
@@ -144,7 +146,7 @@ public class UnOrderedList<K extends Comparable<K>> {
     public K pop() {
         if (head == null)
             return null;
-        K headData=head.getKey();
+        K headData = head.getKey();
         head = head.getNext();
         size--;
         return headData;
