@@ -15,13 +15,14 @@ public class Main {
     private static final int GUESS_A_NUMBER = 9;
     private static final int CUSTOMIZE_MESSAGE_DEMONSTRATION = 12;
     private static final int UNORDERED_LIST_MANIPULATION = 13;
+    private static final int ORDERED_LIST_MANIPULATION = 14;
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         System.out.println("Welcome To Algorithms");
         System.out.println("Press 1 to Find Permutation Of Strings,2 to perform Binary Seaarch,3 for Insertion Sort," +
                 "\n4 for Bubble Sort,5 For Merge Sort,6 for Anagrams,7 for Range Prime Numbers,9 For Guess A Number Game\n" +
-                ",12 for Customizing Message");
+                ",12 for Customizing Message,13 for Unordered List Manipulation,14 for Ordered List Manipulation");
         Main main = new Main();
         int option = scanner.nextInt();
         String inputString;
@@ -85,8 +86,49 @@ public class Main {
             case UNORDERED_LIST_MANIPULATION:
                 main.readTextFileAndManipulateLinkedList();
                 break;
+            case ORDERED_LIST_MANIPULATION:
+                main.readTextFileAndMaipulateOrderedLinkedList();
+                break;
 
         }
+    }
+
+    private void readTextFileAndMaipulateOrderedLinkedList() {
+        String path = "D:\\Algorithms\\src\\resources\\numbers.csv";
+        OrderedList<Integer> list = new OrderedList<>();
+        try {
+            File myObj = new File(path);
+            Scanner myReader = new Scanner(myObj);
+            int count = 0;
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                String[] words = data.split(",");
+                for (int i = 0; i < words.length; i++) {
+                    list.add(Integer.parseInt(words[i]));
+                }
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        manipulateUserInputOnOrderedList(list);
+    }
+
+    private void manipulateUserInputOnOrderedList(OrderedList<Integer> list) {
+        System.out.println("Enter a Number");
+        Integer number = scanner.nextInt();
+        System.out.println(list);
+        if (list.search(number)) {
+
+            list.remove(number);
+            System.out.println("item exist, hence removed from list");
+        } else {
+            System.out.println("item doesn't exist, hence added to list");
+            list.add(number);
+        }
+        System.out.println(list);
+        list.storeDataIntoFile();
     }
 
     private void customizeMessageUsingRegexAndStringFunctions(String message) {
@@ -297,7 +339,6 @@ public class Main {
         }
         System.out.println(sortedWords);
     }
-
 
     private void findPermutationOfStrings(String inputString) {
 

@@ -4,19 +4,65 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class UnOrderedList<K extends Comparable<K>> {
+public class OrderedList<K extends Comparable<K>> {
+    int size;
     private INode<K> head;
     private INode<K> tail;
-    private int size;
     private int index;
 
-    public UnOrderedList() {
+    public OrderedList() {
         head = null;
         tail = null;
         size = 0;
     }
 
     public void add(K item) {
+        INode<K> tempNode = head;
+        INode<K> insertAfter = null;
+        INode<K> newNode = new ListNode<>(item);
+        while (tempNode != null) {
+            if (tempNode.getKey().compareTo(item) <= 0) {
+                insertAfter = tempNode;
+            }
+            tempNode = tempNode.getNext();
+        }
+        if (insertAfter == null && head != null) {
+            newNode.setNext(head);
+            head = newNode;
+            size++;
+            return;
+        }
+        if (insertAfter == null && head == null) {
+            head = newNode;
+            tail = newNode;
+            size++;
+            return;
+        }
+        if (insertAfter == tail) {
+            append(item);
+            return;
+        }
+        insertAfter(insertAfter.getKey(), item);
+    }
+
+    private void insertAfter(K item1, K item2) {
+        INode<K> tempNode = head;
+        INode<K> newNode = new ListNode<>(item2);
+        while (tempNode != null) {
+            if (tempNode.getKey().equals(item1)) {
+                newNode.setNext(tempNode.getNext());
+                tempNode.setNext(newNode);
+                if (tempNode == tail) {
+                    tail = newNode;
+                }
+                size++;
+                return;
+            }
+            tempNode = tempNode.getNext();
+        }
+    }
+
+    public void append(K item) {
         size++;
         INode<K> newNode = new ListNode<>(item);
         if (head == null) {
@@ -24,9 +70,8 @@ public class UnOrderedList<K extends Comparable<K>> {
             tail = newNode;
             return;
         }
-        newNode.setNext(head);
-        head = newNode;
-
+        tail.setNext(newNode);
+        tail = newNode;
     }
 
     public void remove(K item) {
@@ -67,26 +112,46 @@ public class UnOrderedList<K extends Comparable<K>> {
         return size;
     }
 
-    public void append(K item) {
-        size++;
-        INode<K> newNode = new ListNode<>(item);
-        if (head == null) {
-            head = newNode;
-            tail = newNode;
-            return;
-        }
-        tail.setNext(newNode);
-        tail = newNode;
-    }
-
     public int index(K item) {
         index = -1;
         search(item);
         return index;
     }
 
+    public K pop() {
+        if (head == null)
+            return null;
+        K headData = head.getKey();
+        head = head.getNext();
+        return headData;
+    }
+
+    public K pop(int i) {
+        if (i > size) {
+            return null;
+        }
+        K itemdata;
+        if (i == 0 && head != null) {
+            itemdata = head.getKey();
+            ;
+            head = head.getNext();
+            return itemdata;
+        }
+        INode<K> tempNode = head;
+        while (i != 1) {
+            i--;
+            tempNode = tempNode.getNext();
+        }
+        itemdata = tempNode.getNext().getKey();
+        tempNode.setNext(tempNode.getNext().getNext());
+        if (i == size - 1) {
+            tail = tempNode;
+        }
+        return itemdata;
+    }
+
     public void storeDataIntoFile() {
-        File file = new File("D:\\Algorithms\\src\\resources\\data.csv");
+        File file = new File("D:\\Algorithms\\src\\resources\\numbers.csv");
         FileWriter fr = null;
         INode<K> tempNode = head;
         if (head == null) {
@@ -113,57 +178,6 @@ public class UnOrderedList<K extends Comparable<K>> {
             }
         }
     }
-
-    public void insert(int i, K item) {
-        if (i > size) {
-            System.out.println("Invalid Index");
-            return;
-        }
-        INode<K> newNode = new ListNode<>(item);
-        INode<K> tempNode = head;
-        if (i == 0) {
-            add(item);
-            return;
-        }
-        while (i != 1) {
-            i--;
-            tempNode = tempNode.getNext();
-        }
-        newNode.setNext(tempNode.getNext());
-        if (tempNode == tail) {
-            tail = newNode;
-        }
-        tempNode.setNext(newNode);
-
-    }
-
-    public K pop() {
-        if (head == null)
-            return null;
-        K headData=head.getKey();
-        head = head.getNext();
-        return headData;
-    }
-
-    public void pop(int i) {
-        if (i > size) {
-            return;
-        }
-        if (i == 0 && head != null) {
-            head = head.getNext();
-            return;
-        }
-        INode<K> tempNode = head;
-        while (i != 1) {
-            i--;
-            tempNode = tempNode.getNext();
-        }
-        tempNode.setNext(tempNode.getNext().getNext());
-        if (i == size - 1) {
-            tail = tempNode;
-        }
-    }
-
     @Override
     public String toString() {
         String data = "[";
