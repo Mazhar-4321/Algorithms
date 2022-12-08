@@ -13,13 +13,14 @@ public class Main {
     private static final int ANAGRAM_DETECTION = 6;
     private static final int RANGE_PRIME_NUMBERS = 7;
     private static final int PRIME_NUMBER_AND_ANAGRAM = 8;
+    private static final int GUESS_A_NUMBER = 9;
     private static final Scanner scanner = new Scanner(System.in);
     private boolean isAnagram;
 
     public static void main(String[] args) {
         System.out.println("Welcome To Algorithms");
         System.out.println("Press 1 to Find Permutation Of Strings,2 to perform Binary Seaarch,3 for Insertion Sort," +
-                "4 for Bubble Sort,5 For Merge Sort,6 for Anagrams,7 for Range Prime Numbers");
+                "4 for Bubble Sort,5 For Merge Sort,6 for Anagrams,7 for Range Prime Numbers,9 For Guess A Number Game");
         Main main = new Main();
         int option = scanner.nextInt();
         String inputString;
@@ -69,9 +70,28 @@ public class Main {
             case RANGE_PRIME_NUMBERS:
                 main.printPrimeNumbersInRange(0, 1000);
                 break;
-            case PRIME_NUMBER_AND_ANAGRAM:
-                main.printPrimeNumbersInRange(0, 1000);
+            case GUESS_A_NUMBER:
+                System.out.println("Enter a Number So That I can Guess");
+                number = scanner.nextInt();
+                main.guessANumber(number);
                 break;
+        }
+    }
+
+    private void guessANumber(int number) {
+        int upperLimit = (int) Math.pow(2, number);
+        int lowerLimit = 0;
+        System.out.println("I can Guess Your Number If It Exist betwee " + lowerLimit + "and " + upperLimit);
+        while (lowerLimit <= upperLimit) {
+            int midValue = (lowerLimit + upperLimit) / 2;
+            System.out.println("Is Your Number Between " + lowerLimit + " and " + midValue);
+            System.out.println("Press 1 for Yes , 2 for No, 3 If I Guessed Your Number i.e" + midValue);
+            int option = scanner.nextInt();
+            if (option == 1) {
+                upperLimit = midValue - 1;
+            } else {
+                lowerLimit = midValue + 1;
+            }
         }
     }
 
@@ -241,7 +261,7 @@ public class Main {
         }
     }
 
-    private <T extends Comparable<T>>void sortWords(ArrayList<T> sortedWords) {
+    private <T extends Comparable<T>> void sortWords(ArrayList<T> sortedWords) {
         for (int i = 0; i < sortedWords.size(); i++) {
             int minIndex = i;
             T minString = sortedWords.get(i);
