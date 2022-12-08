@@ -19,6 +19,7 @@ public class Main {
     private static final int SIMPLE_BALANCED_PARENTHESIS = 15;
     private static final int BANKING_CASH_COUNTER_SIMULATOR = 16;
     private static final int PRINT_CALENDAR = 17;
+    private static final int NO_OF_BSTS = 18;
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -26,7 +27,8 @@ public class Main {
         System.out.println("Press 1 to Find Permutation Of Strings,2 to perform Binary Seaarch,3 for Insertion Sort," +
                 "\n4 for Bubble Sort,5 For Merge Sort,6 for Anagrams,7 for Range Prime Numbers,9 For Guess A Number Game\n" +
                 ",12 for Customizing Message,13 for Unordered List Manipulation,14 for Ordered List Manipulation\n" +
-                ",15 for Validate Parenthesis,16 for Cash Counter Simulator,17 for Calendar Simulator");
+                ",15 for Validate Parenthesis,16 for Cash Counter Simulator,17 for Calendar Simulator\n" +
+                "18 to print Unique BSTS ");
         Main main = new Main();
         int option = scanner.nextInt();
         String inputString;
@@ -102,16 +104,34 @@ public class Main {
             case PRINT_CALENDAR:
                 main.printCalendar();
                 break;
+            case NO_OF_BSTS:
+                main.printNoOfUniqueBSTs();
+                break;
 
 
         }
     }
 
+    private void printNoOfUniqueBSTs() {
+        System.out.println("Enter a Number");
+        int number = scanner.nextInt();
+        int countOfBSTS = getFactorial(2 * number) / getFactorial(number + 1) * getFactorial(number);
+    }
+
+    private int getFactorial(int number) {
+        int factorial = 1;
+        while (number > 1) {
+            factorial = factorial * number;
+            number -= 1;
+        }
+        return factorial;
+    }
+
     private void printCalendar() {
         System.out.println("Enter month and Year");
-        int month=scanner.nextInt();
-        int year=scanner.nextInt();
-        MyCalendar m = new MyCalendar(month,year);
+        int month = scanner.nextInt();
+        int year = scanner.nextInt();
+        MyCalendar m = new MyCalendar(month, year);
         m.printCalendar();
     }
 
@@ -121,7 +141,7 @@ public class Main {
         System.out.println("Please Enter Your Capital");
         long capitalAmount = scanner.nextLong();
         Queue<Integer> queue = new Queue<>();
-        for(int i=1;i<=number;i++){
+        for (int i = 1; i <= number; i++) {
             queue.enqueue(i);
         }
         System.out.println("People In The Queue");
@@ -154,7 +174,7 @@ public class Main {
             System.out.println("People In The Queue");
             System.out.println(queue);
         }
-        System.out.println("Amount Available:"+capitalAmount+" and Queue Size is"+queue.size());
+        System.out.println("Amount Available:" + capitalAmount + " and Queue Size is" + queue.size());
     }
 
     private void perfomBalancedParenthesisValidationOnExpression() {
