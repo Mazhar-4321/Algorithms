@@ -54,7 +54,7 @@ public class Main {
             case BUBBLE_SORT:
                 System.out.println("Enter Number Of Integers You Want to Sort");
                 number = scanner.nextInt();
-                int[] numbers = new int[number];
+                Integer[] numbers = new Integer[number];
                 for (int i = 0; i < numbers.length; i++) {
                     numbers[i] = scanner.nextInt();
                 }
@@ -121,14 +121,14 @@ public class Main {
         System.out.println("Anagrams");
     }
 
-    private void mergeSort(String[] words) {
+    private <T extends Comparable<T>> void mergeSort(T[] words) {
         mergseSortAlgorithm(words, 0, words.length - 1);
-        for (String word : words) {
+        for (T word : words) {
             System.out.println(word);
         }
     }
 
-    private void mergseSortAlgorithm(String[] words, int first, int last) {
+    private <T extends Comparable<T>> void mergseSortAlgorithm(T[] words, int first, int last) {
         if (first < last) {
             int mid = (first + last) / 2;
             mergseSortAlgorithm(words, first, mid);
@@ -137,12 +137,12 @@ public class Main {
         }
     }
 
-    private void merge(String[] words, int first, int mid, int last) {
+    private <T extends Comparable<T>> void merge(T[] words, int first, int mid, int last) {
         int i, j, k;
         int n1 = mid - first + 1;
         int n2 = last - mid;
-        String[] LeftArray = new String[n1];
-        String[] RightArray = new String[n2];
+        T[] LeftArray = (T[]) new Object[n1];
+        T[] RightArray = (T[]) new Object[n2];
         for (i = 0; i < n1; i++)
             LeftArray[i] = words[first + i];
         for (j = 0; j < n2; j++)
@@ -174,25 +174,25 @@ public class Main {
 
     }
 
-    private void bubbleSort(int[] numbers) {
+    private <T extends Comparable<T>> void bubbleSort(T[] numbers) {
         for (int i = 0; i < numbers.length; i++) {
             for (int j = 0; j + 1 < numbers.length; j++) {
-                if (numbers[j] > numbers[j + 1]) {
-                    int temp = numbers[j];
+                if (numbers[j].compareTo(numbers[j + 1]) > 1) {
+                    T temp = numbers[j];
                     numbers[j] = numbers[j + 1];
                     numbers[j + 1] = temp;
                 }
             }
         }
-        for (int number : numbers) {
+        for (T number : numbers) {
             System.out.println(number);
         }
     }
 
-    private void insertionSort(String[] words) {
+    private <T extends Comparable<T>> void insertionSort(T[] words) {
         int n = words.length;
         for (int i = 1; i < n; ++i) {
-            String currentWord = words[i];
+            T currentWord = (T) words[i];
             int j = i - 1;
             while (j >= 0 && words[j].compareTo(currentWord) > 0) {
                 words[j + 1] = words[j];
@@ -200,12 +200,12 @@ public class Main {
             }
             words[j + 1] = currentWord;
         }
-        for (String word : words) {
+        for (T word : words) {
             System.out.println(word);
         }
     }
 
-    private void binarySearch(String inputString) {
+    private <T extends Comparable<T>> void binarySearch(T inputString) {
         String path = "D:\\Algorithms\\src\\resources\\data.csv";
         ArrayList<String> sortedWords = new ArrayList<>();
         try {
@@ -229,11 +229,11 @@ public class Main {
 
         while (first <= last) {
             int middle = (first + last) / 2;
-            if (inputString.equalsIgnoreCase(sortedWords.get(middle))) {
+            if (inputString.compareTo((T) sortedWords.get(middle)) == 0) {
                 System.out.println("Word Found at index :" + middle);
                 break;
             }
-            if (inputString.compareTo(sortedWords.get(middle)) > 0) {
+            if (inputString.compareTo((T) sortedWords.get(middle)) > 0) {
                 first = middle + 1;
                 continue;
             }
@@ -241,17 +241,17 @@ public class Main {
         }
     }
 
-    private void sortWords(ArrayList<String> sortedWords) {
+    private <T extends Comparable<T>>void sortWords(ArrayList<T> sortedWords) {
         for (int i = 0; i < sortedWords.size(); i++) {
             int minIndex = i;
-            String minString = sortedWords.get(i);
+            T minString = sortedWords.get(i);
             for (int j = i + 1; j < sortedWords.size(); j++) {
                 if (minString.compareTo(sortedWords.get(j)) > 0) {
                     minIndex = j;
                     minString = sortedWords.get(j);
                 }
             }
-            String temp = sortedWords.get(i);
+            T temp = sortedWords.get(i);
             sortedWords.set(i, sortedWords.get(minIndex));
             sortedWords.set(minIndex, temp);
         }
