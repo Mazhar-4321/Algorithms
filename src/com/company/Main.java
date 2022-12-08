@@ -11,11 +11,13 @@ public class Main {
     private static final int PERMUTATION_OF_STRINGS = 1;
     private static final int BINARY_SEARCH = 2;
     private static final int INSERTION_SORT = 3;
+    private static final int BUBBLE_SORT = 4;
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         System.out.println("Welcome To Algorithms");
-        System.out.println("Press 1 to Find Permutation Of Strings,2 to perform Binary Seaarch,3 for Insertion Sort");
+        System.out.println("Press 1 to Find Permutation Of Strings,2 to perform Binary Seaarch,3 for Insertion Sort," +
+                "4 for Bubble Sort");
         Main main = new Main();
         int option = scanner.nextInt();
         String inputString;
@@ -38,6 +40,30 @@ public class Main {
                 }
                 main.insertionSort(words);
                 break;
+            case BUBBLE_SORT:
+                System.out.println("Enter Number Of Integers You Want to Sort");
+                number = scanner.nextInt();
+                int[] numbers = new int[number];
+                for (int i = 0; i < numbers.length; i++) {
+                    numbers[i] = scanner.nextInt();
+                }
+                main.bubbleSort(numbers);
+                break;
+        }
+    }
+
+    private void bubbleSort(int[] numbers) {
+        for (int i = 0; i < numbers.length; i++) {
+            for (int j = 0; j + 1 < numbers.length; j++) {
+                if (numbers[j] > numbers[j + 1]) {
+                    int temp = numbers[j];
+                    numbers[j] = numbers[j + 1];
+                    numbers[j + 1] = temp;
+                }
+            }
+        }
+        for (int number : numbers) {
+            System.out.println(number);
         }
     }
 
