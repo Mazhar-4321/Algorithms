@@ -11,12 +11,13 @@ public class Main {
     private static final int BUBBLE_SORT = 4;
     private static final int MERGE_SORT = 5;
     private static final int ANAGRAM_DETECTION = 6;
+    private static final int RANGE_PRIME_NUMBERS = 7;
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         System.out.println("Welcome To Algorithms");
         System.out.println("Press 1 to Find Permutation Of Strings,2 to perform Binary Seaarch,3 for Insertion Sort," +
-                "4 for Bubble Sort,5 For Merge Sort,6 for Anagrams");
+                "4 for Bubble Sort,5 For Merge Sort,6 for Anagrams,7 for Range Prime Numbers");
         Main main = new Main();
         int option = scanner.nextInt();
         String inputString;
@@ -61,24 +62,42 @@ public class Main {
                 System.out.println("Enter Two Strings to Check for Anagram");
                 String string1 = scanner.next();
                 String string2 = scanner.next();
-                main.checkForAnagrams(string1,string2);
+                main.checkForAnagrams(string1, string2);
+                break;
+            case RANGE_PRIME_NUMBERS:
+                main.printPrimeNumbersInRange(0, 1000);
                 break;
         }
     }
 
-    private void checkForAnagrams(String string1, String string2) {
-        Map<Character,Integer> charactersMap = new HashMap<>();
-        for(char x: string1.toCharArray()){
-            if(charactersMap.containsKey(x)){
-                charactersMap.put(x,charactersMap.get(x)+1);
-            }else{
-                charactersMap.put(x,1);
+    private void printPrimeNumbersInRange(int start, int end) {
+        start = start < 2 ? 2 : start;
+        for (int i = start; i <= end; i++) {
+            int factors = 0;
+            for (int j = 1; j <= i; j++) {
+                if (i % j == 0) {
+                    factors++;
+                }
+            }
+            if (factors == 2) {
+                System.out.println(i);
             }
         }
-        for(char x: string2.toCharArray()){
-            if(charactersMap.containsKey(x)&&charactersMap.get(x)>0){
-                charactersMap.put(x,charactersMap.get(x)-1);
-            }else{
+    }
+
+    private void checkForAnagrams(String string1, String string2) {
+        Map<Character, Integer> charactersMap = new HashMap<>();
+        for (char x : string1.toCharArray()) {
+            if (charactersMap.containsKey(x)) {
+                charactersMap.put(x, charactersMap.get(x) + 1);
+            } else {
+                charactersMap.put(x, 1);
+            }
+        }
+        for (char x : string2.toCharArray()) {
+            if (charactersMap.containsKey(x) && charactersMap.get(x) > 0) {
+                charactersMap.put(x, charactersMap.get(x) - 1);
+            } else {
                 System.out.println("Not an Anagaram");
                 return;
             }
