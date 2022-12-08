@@ -13,12 +13,14 @@ public class Main {
     private static final int ANAGRAM_DETECTION = 6;
     private static final int RANGE_PRIME_NUMBERS = 7;
     private static final int GUESS_A_NUMBER = 9;
+    private static final int CUSTOMIZE_MESSAGE_DEMONSTRATION = 12;
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         System.out.println("Welcome To Algorithms");
         System.out.println("Press 1 to Find Permutation Of Strings,2 to perform Binary Seaarch,3 for Insertion Sort," +
-                "4 for Bubble Sort,5 For Merge Sort,6 for Anagrams,7 for Range Prime Numbers,9 For Guess A Number Game");
+                "\n4 for Bubble Sort,5 For Merge Sort,6 for Anagrams,7 for Range Prime Numbers,9 For Guess A Number Game\n" +
+                ",12 for Customizing Message");
         Main main = new Main();
         int option = scanner.nextInt();
         String inputString;
@@ -73,7 +75,23 @@ public class Main {
                 number = scanner.nextInt();
                 main.guessANumber(number);
                 break;
+            case CUSTOMIZE_MESSAGE_DEMONSTRATION:
+                System.out.println("Enter Enter A Message");
+                scanner.nextLine();
+                String message=scanner.nextLine();
+                main.customizeMessageUsingRegexAndStringFunctions(message);
+                break;
+
         }
+    }
+
+    private void customizeMessageUsingRegexAndStringFunctions(String message) {
+         message="Hello <<name>> , We have your full name as <<full name>> in our system. your contact number is 91-1234567891. Please Let us Know in case of any clarification Thank you BridgeLabz 01/01/2006";
+        message = message.replaceAll("91\\-[0-9]{10}", "91-8125629427");
+        message=message.replaceAll("<<name>>","Mazhar");
+        message=message.replaceAll("<<full name>>","Ali Syed");
+        message=message.replaceAll("[0-9]{2}/[0-9]{2}/[0-9]{4}",new Date().getDate()+"/"+new Date().getMonth()+"/"+(new Date().getYear()+1900));
+        System.out.println(message);
     }
 
     private void guessANumber(int number) {
