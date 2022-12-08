@@ -117,6 +117,7 @@ public class Main {
     }
 
     private void storeAndPrintRangePrimeNumbersIn2D() {
+        Stack<Integer> stack = new Stack<>();
         int[][] primeNumbersArray = new int[10][100];
         int index = 0;
         for (int i = 3; i <= 1000; i += 2) {
@@ -136,9 +137,13 @@ public class Main {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 100; j++) {
                 if (checkForAnagramsOfPrimeNumbers(primeNumbersArray, primeNumbersArray[i][j]))
-                    System.out.print(primeNumbersArray[i][j] + " ");
+                    stack.push(primeNumbersArray[i][j]);
             }
             System.out.println();
+        }
+        while (stack.isEmpty()){
+            System.out.println(stack.peek());
+            stack.pop();
         }
     }
 
