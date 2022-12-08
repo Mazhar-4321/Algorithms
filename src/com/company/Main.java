@@ -12,10 +12,8 @@ public class Main {
     private static final int MERGE_SORT = 5;
     private static final int ANAGRAM_DETECTION = 6;
     private static final int RANGE_PRIME_NUMBERS = 7;
-    private static final int PRIME_NUMBER_AND_ANAGRAM = 8;
     private static final int GUESS_A_NUMBER = 9;
     private static final Scanner scanner = new Scanner(System.in);
-    private boolean isAnagram;
 
     public static void main(String[] args) {
         System.out.println("Welcome To Algorithms");
