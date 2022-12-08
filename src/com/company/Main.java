@@ -68,7 +68,6 @@ public class Main {
 
     private void checkForAnagrams(String string1, String string2) {
         Map<Character,Integer> charactersMap = new HashMap<>();
-        int count=0;
         for(char x: string1.toCharArray()){
             if(charactersMap.containsKey(x)){
                 charactersMap.put(x,charactersMap.get(x)+1);
