@@ -1,16 +1,20 @@
 package com.company;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.Set;
 
 public class Main {
     private static final int PERMUTATION_OF_STRINGS = 1;
+    private static final int BINARY_SEARCH = 2;
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         System.out.println("Welcome To Algorithms");
-        System.out.println("Press 1 to Find Permutation Of Strings");
+        System.out.println("Press 1 to Find Permutation Of Strings,2 to perform Binary Seaarch");
         Main main = new Main();
         int option = scanner.nextInt();
         String inputString;
@@ -19,13 +23,73 @@ public class Main {
                 inputString = scanner.next();
                 main.findPermutationOfStrings(inputString);
                 break;
+            case BINARY_SEARCH:
+                System.out.println("Enter a Word to Perform Search");
+                inputString = scanner.next();
+                main.binarySearch(inputString);
+                break;
         }
     }
+
+    private void binarySearch(String inputString) {
+        String path = "D:\\Algorithms\\src\\resources\\data.csv";
+        ArrayList<String> sortedWords = new ArrayList<>();
+        try {
+            File myObj = new File(path);
+            Scanner myReader = new Scanner(myObj);
+            int count = 0;
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                String[] words = data.split(",");
+                for (int i = 0; i < words.length; i++) {
+                    sortedWords.add(words[i]);
+                }
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        sortWords(sortedWords);
+        int first = 0, last = sortedWords.size() - 1;
+
+        while (first <= last) {
+            int middle = (first + last) / 2;
+            if (inputString.equalsIgnoreCase(sortedWords.get(middle))) {
+                System.out.println("Word Found at index :" + middle);
+                break;
+            }
+            if (inputString.compareTo(sortedWords.get(middle)) > 0) {
+                first = middle + 1;
+                continue;
+            }
+            last = middle - 1;
+        }
+    }
+
+    private void sortWords(ArrayList<String> sortedWords) {
+        for (int i = 0; i < sortedWords.size(); i++) {
+            int minIndex = i;
+            String minString = sortedWords.get(i);
+            for (int j = i + 1; j < sortedWords.size(); j++) {
+                if (minString.compareTo(sortedWords.get(j)) > 0) {
+                    minIndex = j;
+                    minString = sortedWords.get(j);
+                }
+            }
+            String temp = sortedWords.get(i);
+            sortedWords.set(i, sortedWords.get(minIndex));
+            sortedWords.set(minIndex, temp);
+        }
+        System.out.println(sortedWords);
+    }
+
 
     private void findPermutationOfStrings(String inputString) {
 
     }
-    private void findPermutationOfStringsUsingRecursion(String inputString){
+
+    private void findPermutationOfStringsUsingRecursion(String inputString) {
 
     }
 }
