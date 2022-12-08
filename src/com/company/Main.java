@@ -14,6 +14,7 @@ public class Main {
     private static final int RANGE_PRIME_NUMBERS = 7;
     private static final int GUESS_A_NUMBER = 9;
     private static final int CUSTOMIZE_MESSAGE_DEMONSTRATION = 12;
+    private static final int UNORDERED_LIST_MANIPULATION = 13;
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -78,19 +79,22 @@ public class Main {
             case CUSTOMIZE_MESSAGE_DEMONSTRATION:
                 System.out.println("Enter Enter A Message");
                 scanner.nextLine();
-                String message=scanner.nextLine();
+                String message = scanner.nextLine();
                 main.customizeMessageUsingRegexAndStringFunctions(message);
+                break;
+            case UNORDERED_LIST_MANIPULATION:
+                main.readTextFileAndManipulateLinkedList();
                 break;
 
         }
     }
 
     private void customizeMessageUsingRegexAndStringFunctions(String message) {
-         message="Hello <<name>> , We have your full name as <<full name>> in our system. your contact number is 91-1234567891. Please Let us Know in case of any clarification Thank you BridgeLabz 01/01/2006";
+        message = "Hello <<name>> , We have your full name as <<full name>> in our system. your contact number is 91-1234567891. Please Let us Know in case of any clarification Thank you BridgeLabz 01/01/2006";
         message = message.replaceAll("91\\-[0-9]{10}", "91-8125629427");
-        message=message.replaceAll("<<name>>","Mazhar");
-        message=message.replaceAll("<<full name>>","Ali Syed");
-        message=message.replaceAll("[0-9]{2}/[0-9]{2}/[0-9]{4}",new Date().getDate()+"/"+new Date().getMonth()+"/"+(new Date().getYear()+1900));
+        message = message.replaceAll("<<name>>", "Mazhar");
+        message = message.replaceAll("<<full name>>", "Ali Syed");
+        message = message.replaceAll("[0-9]{2}/[0-9]{2}/[0-9]{4}", new Date().getDate() + "/" + new Date().getMonth() + "/" + (new Date().getYear() + 1900));
         System.out.println(message);
     }
 
@@ -299,7 +303,44 @@ public class Main {
 
     }
 
-    private void findPermutationOfStringsUsingRecursion(String inputString) {
+    private <K> void findPermutationOfStringsUsingRecursion(K inputString) {
+    }
 
+    private void readTextFileAndManipulateLinkedList() {
+        String path = "D:\\Algorithms\\src\\resources\\data.csv";
+        UnOrderedList<String> list = new UnOrderedList<>();
+        try {
+            File myObj = new File(path);
+            Scanner myReader = new Scanner(myObj);
+            int count = 0;
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                String[] words = data.split(",");
+                for (int i = 0; i < words.length; i++) {
+                    list.add(words[i]);
+                }
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        manipulateUserInputOnList(list);
+    }
+
+    private void manipulateUserInputOnList(UnOrderedList<String> list) {
+        System.out.println("Enter a Word");
+        String word = scanner.next();
+        System.out.println(list);
+        if (list.search(word)) {
+
+            list.remove(word);
+            System.out.println("item exist, hence removed from list");
+        } else {
+            System.out.println("item doesn't exist, hence added to list");
+            list.add(word);
+        }
+        System.out.println(list);
+        list.storeDataIntoFile();
     }
 }
