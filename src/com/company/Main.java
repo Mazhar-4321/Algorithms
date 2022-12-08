@@ -130,15 +130,62 @@ public class Main {
                 index += 1;
             }
             if (factors == 2) {
-                primeNumbersArray[index][i%100]=i;
+                primeNumbersArray[index][i % 100] = i;
             }
         }
-        for(int i=0;i<10;i++){
-            for(int j=0;j<100;j++){
-                System.out.print(primeNumbersArray[i][j]+" ");
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 100; j++) {
+                if (checkForAnagramsOfPrimeNumbers(primeNumbersArray, primeNumbersArray[i][j]))
+                    System.out.print(primeNumbersArray[i][j] + " ");
             }
             System.out.println();
         }
+    }
+
+    private boolean checkForAnagramsOfPrimeNumbers(int[][] primeNumbersArray, int primeNumber) {
+        if (primeNumber < 100) {
+            int anagram1 = primeNumber;
+            int anagram2 = Integer.parseInt("" + primeNumber + "".charAt(1) + primeNumber + "".charAt(0));
+            if (primeNumbersArray[0][anagram2] != 0) {
+                return true;
+            }
+        } else {
+            String numberToString = primeNumber + "";
+            int firstNumber = Integer.parseInt(numberToString.charAt(0) + "");
+            int index = firstNumber;
+            int anagram1 = Integer.parseInt("" + numberToString.charAt(0) + numberToString.charAt(1) + numberToString.charAt(2));
+            index = Integer.parseInt(anagram1 + "".charAt(0) + "");
+            if (primeNumbersArray[index][anagram1 % 100] != 0) {
+                return true;
+            }
+            int anagram2 = Integer.parseInt("" + numberToString.charAt(0) + numberToString.charAt(2) + numberToString.charAt(1));
+            index = Integer.parseInt(anagram2 + "".charAt(0) + "");
+            if (primeNumbersArray[index][anagram2 % 100] != 0) {
+                return true;
+            }
+            int anagram3 = Integer.parseInt("" + numberToString.charAt(1) + numberToString.charAt(0) + numberToString.charAt(2));
+            index = Integer.parseInt(anagram3 + "".charAt(0) + "");
+            if (primeNumbersArray[index][anagram3 % 100] != 0) {
+                return true;
+            }
+            int anagram4 = Integer.parseInt("" + numberToString.charAt(1) + numberToString.charAt(2) + numberToString.charAt(0));
+            index = Integer.parseInt(anagram4 + "".charAt(0) + "");
+            if (primeNumbersArray[index][anagram4 % 100] != 0) {
+                return true;
+            }
+            int anagram5 = Integer.parseInt("" + numberToString.charAt(2) + numberToString.charAt(1) + numberToString.charAt(0));
+            index = Integer.parseInt(anagram5 + "".charAt(0) + "");
+            if (primeNumbersArray[index][anagram5 % 100] != 0) {
+                return true;
+            }
+            int anagram6 = Integer.parseInt("" + numberToString.charAt(2) + numberToString.charAt(0) + numberToString.charAt(1));
+            index = Integer.parseInt(anagram6 + "".charAt(0) + "");
+            if (primeNumbersArray[index][anagram6 % 100] != 0) {
+                return true;
+            }
+            return false;
+        }
+return false;
     }
 
     private void printNoOfUniqueBSTs() {
