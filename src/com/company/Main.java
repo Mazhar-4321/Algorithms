@@ -10,11 +10,12 @@ import java.util.Set;
 public class Main {
     private static final int PERMUTATION_OF_STRINGS = 1;
     private static final int BINARY_SEARCH = 2;
+    private static final int INSERTION_SORT = 3;
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         System.out.println("Welcome To Algorithms");
-        System.out.println("Press 1 to Find Permutation Of Strings,2 to perform Binary Seaarch");
+        System.out.println("Press 1 to Find Permutation Of Strings,2 to perform Binary Seaarch,3 for Insertion Sort");
         Main main = new Main();
         int option = scanner.nextInt();
         String inputString;
@@ -28,6 +29,31 @@ public class Main {
                 inputString = scanner.next();
                 main.binarySearch(inputString);
                 break;
+            case INSERTION_SORT:
+                System.out.println("Enter Number Of Words You Want to Sort");
+                int number = scanner.nextInt();
+                String[] words = new String[number];
+                for (int i = 0; i < words.length; i++) {
+                    words[i] = scanner.next();
+                }
+                main.insertionSort(words);
+                break;
+        }
+    }
+
+    private void insertionSort(String[] words) {
+        int n = words.length;
+        for (int i = 1; i < n; ++i) {
+            String currentWord = words[i];
+            int j = i - 1;
+            while (j >= 0 && words[j].compareTo(currentWord) > 0) {
+                words[j + 1] = words[j];
+                j = j - 1;
+            }
+            words[j + 1] = currentWord;
+        }
+        for (String word : words) {
+            System.out.println(word);
         }
     }
 
