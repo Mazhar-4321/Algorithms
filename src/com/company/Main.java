@@ -20,6 +20,7 @@ public class Main {
     private static final int BANKING_CASH_COUNTER_SIMULATOR = 16;
     private static final int PRINT_CALENDAR = 17;
     private static final int NO_OF_BSTS = 18;
+    private static final int RANGE_PRIME_NUMBERS_IN_2D = 19;
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -28,7 +29,7 @@ public class Main {
                 "\n4 for Bubble Sort,5 For Merge Sort,6 for Anagrams,7 for Range Prime Numbers,9 For Guess A Number Game\n" +
                 ",12 for Customizing Message,13 for Unordered List Manipulation,14 for Ordered List Manipulation\n" +
                 ",15 for Validate Parenthesis,16 for Cash Counter Simulator,17 for Calendar Simulator\n" +
-                "18 to print Unique BSTS ");
+                "18 to print Unique BSTS,19 to print Range Prime Numbers of 2D ");
         Main main = new Main();
         int option = scanner.nextInt();
         String inputString;
@@ -107,8 +108,36 @@ public class Main {
             case NO_OF_BSTS:
                 main.printNoOfUniqueBSTs();
                 break;
+            case RANGE_PRIME_NUMBERS_IN_2D:
+                main.storeAndPrintRangePrimeNumbersIn2D();
+                break;
 
 
+        }
+    }
+
+    private void storeAndPrintRangePrimeNumbersIn2D() {
+        int[][] primeNumbersArray = new int[10][100];
+        int index = 0;
+        for (int i = 3; i <= 1000; i += 2) {
+            int factors = 0;
+            for (int j = 1; j <= i; j++) {
+                if (i % j == 0) {
+                    factors += 1;
+                }
+            }
+            if (i % 100 == 1) {
+                index += 1;
+            }
+            if (factors == 2) {
+                primeNumbersArray[index][i%100]=i;
+            }
+        }
+        for(int i=0;i<10;i++){
+            for(int j=0;j<100;j++){
+                System.out.print(primeNumbersArray[i][j]+" ");
+            }
+            System.out.println();
         }
     }
 
