@@ -12,7 +12,9 @@ public class Main {
     private static final int MERGE_SORT = 5;
     private static final int ANAGRAM_DETECTION = 6;
     private static final int RANGE_PRIME_NUMBERS = 7;
+    private static final int PRIME_NUMBER_AND_ANAGRAM = 8;
     private static final Scanner scanner = new Scanner(System.in);
+    private boolean isAnagram;
 
     public static void main(String[] args) {
         System.out.println("Welcome To Algorithms");
@@ -67,11 +69,15 @@ public class Main {
             case RANGE_PRIME_NUMBERS:
                 main.printPrimeNumbersInRange(0, 1000);
                 break;
+            case PRIME_NUMBER_AND_ANAGRAM:
+                main.printPrimeNumbersInRange(0, 1000);
+                break;
         }
     }
 
     private void printPrimeNumbersInRange(int start, int end) {
         start = start < 2 ? 2 : start;
+        ArrayList<Integer> primeNumbers = new ArrayList<>();
         for (int i = start; i <= end; i++) {
             int factors = 0;
             for (int j = 1; j <= i; j++) {
@@ -79,10 +85,20 @@ public class Main {
                     factors++;
                 }
             }
-            if (factors == 2) {
+            if (factors == 2 && isPalindrome(i)) {
                 System.out.println(i);
             }
         }
+    }
+
+    private boolean isPalindrome(int num) {
+        int temp = num;
+        int rev = 0;
+        while (num > 0) {
+            rev = rev * 10 + num % 10;
+            num = num / 10;
+        }
+        return temp == rev;
     }
 
     private void checkForAnagrams(String string1, String string2) {
