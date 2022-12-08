@@ -2,10 +2,7 @@ package com.company;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
     private static final int PERMUTATION_OF_STRINGS = 1;
@@ -13,12 +10,13 @@ public class Main {
     private static final int INSERTION_SORT = 3;
     private static final int BUBBLE_SORT = 4;
     private static final int MERGE_SORT = 5;
+    private static final int ANAGRAM_DETECTION = 6;
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         System.out.println("Welcome To Algorithms");
         System.out.println("Press 1 to Find Permutation Of Strings,2 to perform Binary Seaarch,3 for Insertion Sort," +
-                "4 for Bubble Sort,5 For Merge Sort");
+                "4 for Bubble Sort,5 For Merge Sort,6 for Anagrams");
         Main main = new Main();
         int option = scanner.nextInt();
         String inputString;
@@ -59,7 +57,34 @@ public class Main {
                 }
                 main.bubbleSort(numbers);
                 break;
+            case ANAGRAM_DETECTION:
+                System.out.println("Enter Two Strings to Check for Anagram");
+                String string1 = scanner.next();
+                String string2 = scanner.next();
+                main.checkForAnagrams(string1,string2);
+                break;
         }
+    }
+
+    private void checkForAnagrams(String string1, String string2) {
+        Map<Character,Integer> charactersMap = new HashMap<>();
+        int count=0;
+        for(char x: string1.toCharArray()){
+            if(charactersMap.containsKey(x)){
+                charactersMap.put(x,charactersMap.get(x)+1);
+            }else{
+                charactersMap.put(x,1);
+            }
+        }
+        for(char x: string2.toCharArray()){
+            if(charactersMap.containsKey(x)&&charactersMap.get(x)>0){
+                charactersMap.put(x,charactersMap.get(x)-1);
+            }else{
+                System.out.println("Not an Anagaram");
+                return;
+            }
+        }
+        System.out.println("Anagrams");
     }
 
     private void mergeSort(String[] words) {
