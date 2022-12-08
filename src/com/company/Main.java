@@ -145,6 +145,7 @@ public class Main {
         System.out.println("Enter a Number");
         int number = scanner.nextInt();
         int countOfBSTS = getFactorial(2 * number) / getFactorial(number + 1) * getFactorial(number);
+        System.out.println(countOfBSTS);
     }
 
     private int getFactorial(int number) {
