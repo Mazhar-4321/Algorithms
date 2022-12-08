@@ -16,13 +16,15 @@ public class Main {
     private static final int CUSTOMIZE_MESSAGE_DEMONSTRATION = 12;
     private static final int UNORDERED_LIST_MANIPULATION = 13;
     private static final int ORDERED_LIST_MANIPULATION = 14;
+    private static final int SIMPLE_BALANCED_PARENTHESIS = 15;
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         System.out.println("Welcome To Algorithms");
         System.out.println("Press 1 to Find Permutation Of Strings,2 to perform Binary Seaarch,3 for Insertion Sort," +
                 "\n4 for Bubble Sort,5 For Merge Sort,6 for Anagrams,7 for Range Prime Numbers,9 For Guess A Number Game\n" +
-                ",12 for Customizing Message,13 for Unordered List Manipulation,14 for Ordered List Manipulation");
+                ",12 for Customizing Message,13 for Unordered List Manipulation,14 for Ordered List Manipulation\n" +
+                ",15 for Validate Parenthesis");
         Main main = new Main();
         int option = scanner.nextInt();
         String inputString;
@@ -89,8 +91,29 @@ public class Main {
             case ORDERED_LIST_MANIPULATION:
                 main.readTextFileAndMaipulateOrderedLinkedList();
                 break;
+            case SIMPLE_BALANCED_PARENTHESIS:
+                main.perfomBalancedParenthesisValidationOnExpression();
+                break;
 
         }
+    }
+
+    private void perfomBalancedParenthesisValidationOnExpression() {
+        System.out.println("Enter Arithmetic Expression:");
+        String arithmeticExpression = scanner.next();
+        Stack<Character> stack = new Stack<>();
+        for (char character : arithmeticExpression.toCharArray()) {
+            if (character == '(') {
+                stack.push(character);
+            }
+            if (character == ')' && stack.peek() == '(') {
+                stack.pop();
+            }
+        }
+        if (stack.isEmpty()) {
+            System.out.println("Arithmetic Expression is Balanced");
+        } else
+            System.out.println("Arithmetic Expression is Not Balanced");
     }
 
     private void readTextFileAndMaipulateOrderedLinkedList() {

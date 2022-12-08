@@ -36,11 +36,13 @@ public class UnOrderedList<K extends Comparable<K>> {
         }
         if (head.getKey().compareTo(item) == 0) {
             head = head.getNext();
+            size--;
             return;
         }
         while (tempNode.getNext() != null) {
             if (tempNode.getNext().getKey().compareTo(item) == 0) {
                 tempNode.setNext(tempNode.getNext().getNext());
+                size--;
                 return;
             }
             tempNode = tempNode.getNext();
@@ -84,7 +86,9 @@ public class UnOrderedList<K extends Comparable<K>> {
         search(item);
         return index;
     }
-
+  public K getHeadData(){
+        return head==null?null:head.getKey();
+  }
     public void storeDataIntoFile() {
         File file = new File("D:\\Algorithms\\src\\resources\\data.csv");
         FileWriter fr = null;
@@ -142,6 +146,7 @@ public class UnOrderedList<K extends Comparable<K>> {
             return null;
         K headData=head.getKey();
         head = head.getNext();
+        size--;
         return headData;
     }
 
@@ -151,6 +156,7 @@ public class UnOrderedList<K extends Comparable<K>> {
         }
         if (i == 0 && head != null) {
             head = head.getNext();
+            size--;
             return;
         }
         INode<K> tempNode = head;
@@ -158,6 +164,7 @@ public class UnOrderedList<K extends Comparable<K>> {
             i--;
             tempNode = tempNode.getNext();
         }
+        size--;
         tempNode.setNext(tempNode.getNext().getNext());
         if (i == size - 1) {
             tail = tempNode;
