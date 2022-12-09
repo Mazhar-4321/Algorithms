@@ -152,25 +152,39 @@ public class UnOrderedList<K extends Comparable<K>> {
         return headData;
     }
 
-    public void pop(int i) {
-        if (i > size) {
-            return;
+    public K pop(int i) {
+        if (i > size || i == 0) {
+            head = null;
+            tail = null;
+            return null;
         }
+        K poppedData;
         if (i == 0 && head != null) {
+            poppedData = head.getKey();
             head = head.getNext();
             size--;
-            return;
+            return poppedData;
         }
         INode<K> tempNode = head;
-        while (i != 1) {
+        int temp = i;
+        while (i != 2) {
             i--;
             tempNode = tempNode.getNext();
         }
-        size--;
+        if (tempNode.getNext() == null) {
+            poppedData = tempNode.getKey();
+            head = null;
+            tail = null;
+            size--;
+            return poppedData;
+        }
+        poppedData = tempNode.getNext().getKey();
         tempNode.setNext(tempNode.getNext().getNext());
-        if (i == size - 1) {
+        if (temp == size) {
             tail = tempNode;
         }
+        size--;
+        return poppedData;
     }
 
     @Override

@@ -21,6 +21,7 @@ public class Main {
     private static final int PRINT_CALENDAR = 17;
     private static final int NO_OF_BSTS = 18;
     private static final int RANGE_PRIME_NUMBERS_IN_2D = 19;
+    private static final int PALINDROME_CHECK = 20;
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -29,7 +30,7 @@ public class Main {
                 "\n4 for Bubble Sort,5 For Merge Sort,6 for Anagrams,7 for Range Prime Numbers,9 For Guess A Number Game\n" +
                 ",12 for Customizing Message,13 for Unordered List Manipulation,14 for Ordered List Manipulation\n" +
                 ",15 for Validate Parenthesis,16 for Cash Counter Simulator,17 for Calendar Simulator\n" +
-                "18 to print Unique BSTS,19 to print Range Prime Numbers of 2D ");
+                "18 to print Unique BSTS,19 to print Range Prime Numbers of 2D,20 for Palindrome Check");
         Main main = new Main();
         int option = scanner.nextInt();
         String inputString;
@@ -111,9 +112,31 @@ public class Main {
             case RANGE_PRIME_NUMBERS_IN_2D:
                 main.storeAndPrintRangePrimeNumbersIn2D();
                 break;
-
-
+            case PALINDROME_CHECK:
+                main.checkForPalindomeUsingDequeue();
+                break;
         }
+    }
+
+    private void checkForPalindomeUsingDequeue() {
+        System.out.println("Please Enter a Word");
+        String inputString= scanner.next();
+        Dequeue<Character> dequeue = new Dequeue<>();
+        for(Character x : inputString.toCharArray()){
+            dequeue.addRear(x);
+        }
+        while (!dequeue.isEmpty()){
+            Character frontCharacter=dequeue.removeFront();
+            Character rearCharacter=dequeue.removeRear();
+            if(rearCharacter==null){
+               break;
+            }
+            if(frontCharacter!=rearCharacter){
+                System.out.println("Not a Palindrome");
+                return;
+            }
+        }
+        System.out.println("Palindrome");
     }
 
     private void storeAndPrintRangePrimeNumbersIn2D() {
